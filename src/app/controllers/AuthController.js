@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../../config/auth';
+import Plan from '../models/Plan';
 
 class AuthController {
   async store(req, res) {
@@ -21,6 +22,7 @@ class AuthController {
     }
 
     const { id, name } = user;
+    const plan = await Plan.findByPk(user.plan_id);
 
     return res.json({
       user: {
@@ -28,6 +30,7 @@ class AuthController {
         name,
         email,
       },
+      plan,
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),

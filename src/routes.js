@@ -9,9 +9,12 @@ import authMiddleware from './app/middlewares/auth';
 import FileController from './app/controllers/FileController';
 import AddressController from './app/controllers/AddressController';
 import ProfileController from './app/controllers/ProfileController';
+import PlanController from './app/controllers/PlanController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
+
+routes.post('/plans', PlanController.store);
 
 routes.post('/users', UserController.store);
 routes.put('/users', authMiddleware, UserController.update);

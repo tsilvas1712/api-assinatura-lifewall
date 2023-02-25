@@ -11,6 +11,7 @@ class User extends Model {
         password_hash: Sequelize.STRING,
         activate: Sequelize.BOOLEAN,
         is_admin: Sequelize.BOOLEAN,
+        plan_id: Sequelize.INTEGER,
       },
       {
         sequelize,

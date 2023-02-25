@@ -3,7 +3,7 @@ module.exports = {
   host: 'localhost',
   username: 'postgres',
   password: 'postgres',
-  database: 'lifewall_assinaturas',
+  database: 'lwsignaturedb',
   define: {
     timestamp: true,
     underscored: true,
