@@ -11,7 +11,7 @@ class FileController {
   async index(req, res) {
     const files = await File.findAll({ where: { user_id: req.userId } });
 
-    return res.json({ results: files });
+    return res.json( files );
   }
 }
 
