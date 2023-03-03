@@ -2,14 +2,15 @@ import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
-import UserController from './app/controllers/UserController';
 import AuthController from './app/controllers/AuthController';
+import UserController from './app/controllers/UserController';
 
-import authMiddleware from './app/middlewares/auth';
-import FileController from './app/controllers/FileController';
 import AddressController from './app/controllers/AddressController';
-import ProfileController from './app/controllers/ProfileController';
+import DeliveryController from './app/controllers/DeliveryController';
+import FileController from './app/controllers/FileController';
 import PlanController from './app/controllers/PlanController';
+import ProfileController from './app/controllers/ProfileController';
+import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -33,5 +34,8 @@ routes.post(
   FileController.store
 );
 routes.get('/file', authMiddleware, FileController.index);
+
+routes.post('/delivery', authMiddleware, DeliveryController.store);
+routes.get('/delivery', authMiddleware, DeliveryController.index);
 
 export default routes;

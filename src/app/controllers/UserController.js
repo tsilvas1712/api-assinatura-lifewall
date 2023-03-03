@@ -1,6 +1,6 @@
-import User from '../models/User';
-import File from '../models/File';
 import Address from '../models/Address';
+import File from '../models/File';
+import User from '../models/User';
 
 class UserController {
   async store(req, res) {
@@ -41,8 +41,11 @@ class UserController {
   }
 
   async index(req, res) {
+    const { page } = req.query;
     const users = await User.findAll({
       attributes: ['id', 'name', 'email', 'activate'],
+      limit: 10,
+      offset: (page - 1) * 20,
       include: [
         {
           model: Address,
