@@ -34,6 +34,8 @@ routes.post(
   FileController.store
 );
 routes.get('/file', authMiddleware, FileController.index);
+routes.get('/file/:id',authMiddleware,FileController.delete)
+routes.get('/print',authMiddleware,FileController.print)
 
 routes.post('/delivery', authMiddleware, DeliveryController.store);
 routes.get('/delivery', authMiddleware, DeliveryController.index);

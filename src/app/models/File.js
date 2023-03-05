@@ -8,6 +8,7 @@ class File extends Model {
         path: Sequelize.STRING,
         printed: Sequelize.BOOLEAN,
         user_id: Sequelize.INTEGER,
+        deleted: Sequelize.BOOLEAN,
         url: {
           type: Sequelize.VIRTUAL,
           get() {
@@ -21,6 +22,11 @@ class File extends Model {
     );
 
     return this;
+  }
+
+  static associate(models) {
+    this.hasMany(models.ItemsDelivery, { foreignKey: 'file_id' });
+    
   }
 }
 

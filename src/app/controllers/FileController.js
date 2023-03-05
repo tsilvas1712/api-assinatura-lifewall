@@ -9,9 +9,28 @@ class FileController {
   }
 
   async index(req, res) {
-    const files = await File.findAll({ where: { user_id: req.userId } });
+    const files = await File.findAll({ where: { user_id: req.userId,deleted:false } });
 
     return res.json( files );
+  }
+
+  async print(req, res) {
+    const files = await File.findAll({ where: { user_id: req.userId,deleted:false,printed:false } });
+
+    return res.json( files );
+  }
+
+  async delete(req,res){
+    
+    const imageId = req.params.id
+
+    const file = await File.findByPk(imageId);
+
+     file.update({
+      deleted:true
+    });
+
+    return res.json({message:`Imagem ${file.name} Deletada com Sucesso`})
   }
 }
 
