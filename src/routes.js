@@ -11,6 +11,7 @@ import FileController from './app/controllers/FileController';
 import PlanController from './app/controllers/PlanController';
 import ProfileController from './app/controllers/ProfileController';
 import authMiddleware from './app/middlewares/auth';
+import AdminController from './app/controllers/AdminController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -34,10 +35,14 @@ routes.post(
   FileController.store
 );
 routes.get('/file', authMiddleware, FileController.index);
-routes.get('/file/:id',authMiddleware,FileController.delete)
-routes.get('/print',authMiddleware,FileController.print)
+routes.get('/file/:id', authMiddleware, FileController.delete);
+routes.get('/print', authMiddleware, FileController.print);
 
 routes.post('/delivery', authMiddleware, DeliveryController.store);
 routes.get('/delivery', authMiddleware, DeliveryController.index);
+
+routes.get('/admin', authMiddleware, AdminController.index);
+routes.get('/admin/users', authMiddleware, AdminController.listUsers);
+routes.get('/admin/deliveries', authMiddleware, AdminController.listDeliveries);
 
 export default routes;
