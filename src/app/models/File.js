@@ -26,7 +26,6 @@ class File extends Model {
 
   static associate(models) {
     this.hasMany(models.ItemsDelivery, { foreignKey: 'file_id' });
-    
   }
 }
 

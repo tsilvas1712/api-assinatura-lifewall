@@ -5,8 +5,8 @@ class AddressController {
     const { street, number, complement, neighborhood, zip, city, state } =
       req.body;
 
-    const file = await Address.create({
-      address: {
+    try {
+      const address = await Address.create({
         street,
         number,
         complement,
@@ -15,9 +15,13 @@ class AddressController {
         city,
         state,
         user_id: req.userId,
-      },
-    });
-    res.json(file);
+      });
+
+      return res.json(address);
+    } catch (error) {
+      console.log('ERROR', error);
+      return res.status(400).json({ error: 'Address exists.' });
+    }
   }
 }
 

@@ -17,6 +17,7 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.post('/plans', PlanController.store);
+routes.get('/plan', authMiddleware, PlanController.index);
 
 routes.post('/users', UserController.store);
 routes.put('/users', authMiddleware, UserController.update);

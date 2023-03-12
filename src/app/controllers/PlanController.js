@@ -1,4 +1,5 @@
 import Plan from '../models/Plan';
+import User from '../models/User';
 
 class PlanController {
   async store(req, res) {
@@ -7,9 +8,10 @@ class PlanController {
   }
 
   async index(req, res) {
-    const plans = await Plan.findAll();
+    const user = await User.findByPk(req.userId);
+    const plan = await Plan.findByPk(user.plan_id);
 
-    return res.json({ results: plans });
+    return res.json(plan);
   }
 }
 

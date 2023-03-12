@@ -15,8 +15,6 @@ class ItemsDelivery extends Model {
 
     return this;
   }
-
-  
 }
 
 export default ItemsDelivery;
