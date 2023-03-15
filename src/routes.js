@@ -32,7 +32,7 @@ routes.post('/auth', AuthController.store);
 routes.post(
   '/file',
   authMiddleware,
-  upload.single('file'),
+  upload.array('file', 13),
   FileController.store
 );
 routes.get('/file', authMiddleware, FileController.index);
@@ -42,8 +42,10 @@ routes.get('/print', authMiddleware, FileController.print);
 routes.post('/delivery', authMiddleware, DeliveryController.store);
 routes.get('/delivery', authMiddleware, DeliveryController.index);
 
-routes.get('/admin', authMiddleware, AdminController.index);
-routes.get('/admin/users', authMiddleware, AdminController.listUsers);
-routes.get('/admin/deliveries', authMiddleware, AdminController.listDeliveries);
+routes.get('/admin', AdminController.index);
+routes.get('/admin/users', AdminController.listUsers);
+routes.get('/admin/user/:id', AdminController.userStatusUpdate);
+routes.get('/admin/deliveries', AdminController.listDeliveries);
+routes.get('/admin/delivery/:id', AdminController.getDelivery);
 
 export default routes;

@@ -1,3 +1,6 @@
+import 'dotenv/config';
+import 'express-async-error';
+import Youch from 'youch';
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
@@ -11,6 +14,8 @@ class App {
 
     this.middlewares();
     this.routes();
+
+    this.exceptionHandler();
   }
 
   middlewares() {
@@ -24,6 +29,14 @@ class App {
 
   routes() {
     this.server.use(routes);
+  }
+
+  exceptionHandler() {
+    this.server.use(async (err, req, res, next) => {
+      const erros = await new Youch(err, req).toJSON();
+
+      return res.status(500).json(erros);
+    });
   }
 }
 

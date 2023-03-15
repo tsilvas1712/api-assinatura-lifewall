@@ -15,6 +15,10 @@ class ItemsDelivery extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'file_id' });
+  }
 }
 
 export default ItemsDelivery;

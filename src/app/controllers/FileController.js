@@ -2,35 +2,45 @@ import File from '../models/File';
 
 class FileController {
   async store(req, res) {
-    const { originalname: name, filename: path } = req.file;
+    console.log('IBAGENS', req.files);
 
-    const file = await File.create({ name, path, user_id: req.userId });
-    res.json(file);
+    const { files } = req;
+
+    files.map(async (file) => {
+      const { originalname: name, filename: path } = file;
+
+      await File.create({ name, path, user_id: req.userId });
+    });
+    //
+    res.json({ message: `${files.length} arquivo(s)  salvos com sucesso !!!` });
   }
 
   async index(req, res) {
-    const files = await File.findAll({ where: { user_id: req.userId,deleted:false } });
+    const files = await File.findAll({
+      where: { user_id: req.userId, deleted: false },
+    });
 
-    return res.json( files );
+    return res.json(files);
   }
 
   async print(req, res) {
-    const files = await File.findAll({ where: { user_id: req.userId,deleted:false,printed:false } });
+    const files = await File.findAll({
+      where: { user_id: req.userId, deleted: false, printed: false },
+    });
 
-    return res.json( files );
+    return res.json(files);
   }
 
-  async delete(req,res){
-    
-    const imageId = req.params.id
+  async delete(req, res) {
+    const imageId = req.params.id;
 
     const file = await File.findByPk(imageId);
 
-     file.update({
-      deleted:true
+    file.update({
+      deleted: true,
     });
 
-    return res.json({message:`Imagem ${file.name} Deletada com Sucesso`})
+    return res.json({ message: `Imagem ${file.name} Deletada com Sucesso` });
   }
 }
 
